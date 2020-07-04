@@ -13,7 +13,8 @@ public:
     DataElement(float float_var);
 
 private:
-    void* pElement;
+    char *pName;
+    void *pElement;
     enum type_enum {char_pt, int_t, float_t} type;
 };
 
@@ -80,6 +81,10 @@ void DataElement::print(char param)
         }
     }
 }
+
+
+
+
 
 
 
