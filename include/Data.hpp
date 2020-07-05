@@ -1,6 +1,7 @@
 #ifndef DATA_HPP
 #define DATA_HPP
 #include <vector>
+#include <string>
 
 
 /*
@@ -9,6 +10,7 @@
  * this class is universal cell,
  * that may point any data objects.
 */
+
 class Datafield
 {
 public:
@@ -22,10 +24,18 @@ public:
     Datafield(char* name, int int_var);
     Datafield(char* name, float float_var);
 
+    ~Datafield();
+
+    void StoreField(std::ifstream &);
+    void RestoreField(std::ofstream &);
+
 private:
     char *pName;
     void *pValue;
     enum type_enum {char_pt, int_t, float_t} type;
+
+    const unsigned int fieldNameSize = 100;
+    const unsigned int strSize = 100;
 };
 
 
@@ -38,17 +48,29 @@ private:
 class DataObject
 {
 public:
-    Datafield input {"name", "nullptr"};
+    Datafield stfield {"name", "nullptr"};
     std::vector<Datafield> field;
     //---------------------------
     //---------------------------
     DataObject()
     {
-        field.push_back(input);
+        field.push_back(stfield);
+        field.push_back(stfield);
+        field.push_back(stfield);
+        field.push_back(stfield);
+        field.push_back(stfield);
+
+        //field[2].erase(3);
     }
 
+    void StoreObject(std::ifstream &);
+    void RestoreObject(std::ofstream &);
+
+    int size;   //quantity of fields in object
+    char *name; //object name
 
 private:
+
 
 };
 
@@ -70,12 +92,11 @@ public:
     {
         object.push_back(inputObject);
     }
+
+    void StoreData(std::string filename= "save.txt");
+    void RestoreData(std::string filename= "save.txt");
 private:
-    /*
-     *some methods:
-         void StoreData()    -saving architect state of programm in "n_version.txt"
-         void RestoreData()  -load architect state of programm from "n_version.txt"
-    */
+    int size;       //quantity of objects in data
 };
 
 #endif // DATA_HPP
