@@ -1,4 +1,0 @@
-#ifndef DATACLASS_HPP
-#define DATACLASS_HPP
-
-#endif // DATACLASS_HPP
